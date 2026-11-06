@@ -38,3 +38,10 @@ in a fresh closure for each `on` call.
 
 A second edge: `once` listeners are removed before they are invoked, so a
 `once` callback that emits the same event again will not re-enter itself.
+
+## Design notes
+
+The window stores values eagerly rather than keeping running aggregates. Running
+sums drift with floating point over long streams, and recomputing from a small
+buffer is cheap enough that the drift is not worth the speed.
+
